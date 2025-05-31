@@ -3,6 +3,11 @@
 
 ## 📘 Serverless To-Do API – AWS Lambda, API Gateway, DynamoDB
 
+![Architecture](images/architecture.png)
+
+
+
+
 This project is a **serverless REST API** for managing to-do tasks, built using:
 
 * **Amazon API Gateway** for routing HTTP requests
@@ -70,9 +75,8 @@ DynamoDB Table (Tasks)
 curl -X POST https://<api_url>/tasks \
   -H "Content-Type: application/json" \
   -d '{"id": "task1", "title": "Finish serverless project", "priority": "high", "due_date": "2025-06-05"}'
-  ![POST Request](images/post.png)
 ```
-
+![POST Request](images/post.png)
 
 
 
@@ -81,8 +85,9 @@ curl -X POST https://<api_url>/tasks \
 
 ```bash
 curl https://<api_url>/tasks
-(get.png)
 ```
+![GET Request](images/get.png)
+
 
 ### ✏️ Update Task
 
@@ -90,15 +95,20 @@ curl https://<api_url>/tasks
 curl -X PUT https://<api_url>/tasks/{taskId} \
   -H "Content-Type: application/json" \
   -d '{"title":"Play", "priority":"medium"}'
-(put.png)
 ```
+![PUT Request](images/put.png)
+
+
+
 
 ### ❌ Delete Task
 
 ```bash
 curl -X DELETE https://<api_url>/tasks/{taskId}
-(delete.png)
 ```
+![Delete Request](images/delete.png)
+
+
 
 ---
 
@@ -106,10 +116,14 @@ curl -X DELETE https://<api_url>/tasks/{taskId}
 
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| Terraform apply Output   | (output.png) |
-| Lambda Function Code    | (lambda.png)       |
-| DynamoDB Table View     |  (dynamodb.png)       |
-| API Gateway Test        | (api.png)     |
+| Terraform apply Output   |![Terraform output](images/output.png)
+ |
+| Lambda Function Code    |![Lambda ](images/lambda.png)
+  |
+| DynamoDB Table View     |![Dymanodb](images/dynamodb.png)
+  |
+| API Gateway Test        |![API](images/api.png)
+    |
 |    |
 
 

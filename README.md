@@ -73,6 +73,9 @@ curl -X POST https://<api_url>/tasks \
 ```
 ![POST Request](images/post.png)
 
+
+
+
 ### 📖 Get All Tasks
 
 ```bash

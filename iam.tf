@@ -29,7 +29,7 @@ resource "aws_iam_role_policy" "lambda_dynamodb_policy" {
           "dynamodb:Scan",
           "dynamodb:Query"
         ],
-      "Resource": "arn:aws:dynamodb:us-east-1:837853803040:table/Tasks"
+      "Resource": "arn:aws:dynamodb:us-east-1:aws_account_number:table/Tasks" #replace aws_account_number with your actual AWS account number
       }
     ]
   })

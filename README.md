@@ -103,10 +103,10 @@ curl -X DELETE https://<api_url>/tasks/{taskId}
 
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| Terraform apply Output   | ![Terraform Plan](output.png) |
-| Lambda Function Code    | ![Lambda](lambda.png)       |
-| DynamoDB Table View     | ![DynamoDB Table](dynamodb.png)       |
-| API Gateway Test        | ![API Gateway Test](api.png)     |
+| Terraform apply Output   | (output.png) |
+| Lambda Function Code    | (lambda.png)       |
+| DynamoDB Table View     |  (dynamodb.png)       |
+| API Gateway Test        | (api.png)     |
 |    |
 
 

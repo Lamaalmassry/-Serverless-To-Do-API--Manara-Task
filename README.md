@@ -70,8 +70,9 @@ DynamoDB Table (Tasks)
 curl -X POST https://<api_url>/tasks \
   -H "Content-Type: application/json" \
   -d '{"id": "task1", "title": "Finish serverless project", "priority": "high", "due_date": "2025-06-05"}'
+  ![POST Request](images/post.png)
 ```
-![POST Request](images/post.png)
+
 
 
 

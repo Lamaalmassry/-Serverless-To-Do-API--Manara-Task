@@ -78,6 +78,7 @@ curl -X POST https://<api_url>/tasks \
 
 ```bash
 curl https://<api_url>/tasks
+(get.png)
 ```
 
 ### ✏️ Update Task

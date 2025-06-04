@@ -12,26 +12,25 @@ resource "aws_iam_role" "lambda_role" {
     }]
   })
 }
+
 resource "aws_iam_role_policy" "lambda_dynamodb_policy" {
   name = "lambda_dynamodb_access"
   role = aws_iam_role.lambda_role.name
 
   policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect   = "Allow",
-        Action   = [
-          "dynamodb:PutItem",
-          "dynamodb:GetItem",
-          "dynamodb:UpdateItem",
-          "dynamodb:DeleteItem",
-          "dynamodb:Scan",
-          "dynamodb:Query"
-        ],
-      "Resource": "arn:aws:dynamodb:us-east-1:aws_account_number:table/Tasks" #replace aws_account_number with your actual AWS account number
-      }
-    ]
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "dynamodb:PutItem",
+        "dynamodb:GetItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Scan",
+        "dynamodb:Query"
+      ]
+      Resource = "arn:aws:dynamodb:us-east-1:${data.aws_caller_identity.current.account_id}:table/Tasks"
+    }]
   })
 }
 
@@ -47,3 +46,14 @@ resource "aws_lambda_permission" "api_gateway_access" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
 }
+
+
+resource "aws_lambda_permission" "api_gateway_options_access" {
+  statement_id  = "AllowAPIGatewayOptionsInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.task_handler.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/OPTIONS/*"
+}
+
+

@@ -1,9 +1,11 @@
 resource "aws_lambda_function" "task_handler" {
-  function_name = "TaskHandler"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "handler.lambda_handler"
-  runtime       = "python3.9"
-  filename      = "handler.zip"
+  function_name    = "TaskHandler"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "handler.lambda_handler"
+  runtime          = "python3.9"
+  filename         = "handler.zip"
+  source_code_hash = filebase64sha256("handler.zip")
+  
 
   environment {
     variables = {

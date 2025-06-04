@@ -2,52 +2,137 @@ import json
 import boto3
 import os
 import uuid
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def lambda_handler(event, context):
-    method = event['requestContext']['http']['method']
-    path = event['requestContext']['http']['path']
-    path_parts = path.strip("/").split("/")
-    task_id = path_parts[-1] if len(path_parts) > 1 else None
+    print("EVENT:", json.dumps(event))  # useful for debugging in CloudWatch
 
-    if method == "POST":
-        data = json.loads(event['body'])
-        task = {
-            "taskId": str(uuid.uuid4()),
-            "title": data.get('title', ''),
-            "status": "Pending",
-            "description": data.get("description", ""),
-            "priority": data.get("priority", ""),
-            "due_date": data.get("due_date", "")
+    headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+        "Access-Control-Max-Age": "86400"
+    }
+
+    # Detect HTTP method robustly (support REST API and HTTP API)
+    method = event.get("requestContext", {}).get("http", {}).get("method") \
+        or event.get("httpMethod", "GET")
+
+    path = event.get("requestContext", {}).get("http", {}).get("path") \
+        or event.get("path", "/")
+
+    # Handle OPTIONS preflight
+    if method == 'OPTIONS':
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({'message': 'CORS preflight successful'})
         }
-        table.put_item(Item=task)
-        return {"statusCode": 201, "body": json.dumps(task)}
 
-    elif method == "GET":
-        response = table.scan()
-        return {"statusCode": 200, "body": json.dumps(response['Items'])}
+    try:
+        path_parts = [p for p in path.split('/') if p]
+        task_id = path_parts[-1] if len(path_parts) > 1 else None
 
-    elif method == "PUT" and task_id:
-        data = json.loads(event['body'])
+        # Handle POST
+        if method == 'POST':
+            data = json.loads(event['body'])
+            if not data.get('title'):
+                raise ValueError("Title is required")
 
-        # Prepare update expression for all fields sent
-        update_expr = "set " + ", ".join(f"{k}=:{k}" for k in data.keys())
-        expr_vals = {f":{k}": v for k, v in data.items()}
+            task = {
+                'taskId': str(uuid.uuid4()),
+                'title': data['title'],
+                'status': data.get('status', 'Pending'),
+                'description': data.get('description', ''),
+                'priority': data.get('priority', 'medium'),
+                'due_date': data.get('due_date', ''),
+                'createdAt': datetime.now().isoformat()
+            }
 
-        table.update_item(
-            Key={"taskId": task_id},
-            UpdateExpression=update_expr,
-            ExpressionAttributeValues=expr_vals
-        )
+            table.put_item(Item=task)
+            return {
+                'statusCode': 201,
+                'headers': headers,
+                'body': json.dumps(task)
+            }
 
-        # Return the updated item after update (optional)
-        updated_item = table.get_item(Key={"taskId": task_id}).get('Item', {})
-        return {"statusCode": 200, "body": json.dumps(updated_item)}
+        # Handle GET
+        elif method == 'GET':
+            if task_id:
+                response = table.get_item(Key={'taskId': task_id})
+                if 'Item' not in response:
+                    return {
+                        'statusCode': 404,
+                        'headers': headers,
+                        'body': json.dumps({'error': 'Task not found'})
+                    }
+                return {
+                    'statusCode': 200,
+                    'headers': headers,
+                    'body': json.dumps(response['Item'])
+                }
+            else:
+                response = table.scan()
+                return {
+                    'statusCode': 200,
+                    'headers': headers,
+                    'body': json.dumps(response.get('Items', []))
+                }
 
-    elif method == "DELETE" and task_id:
-        table.delete_item(Key={"taskId": task_id})
-        return {"statusCode": 200, "body": json.dumps({"message": "Task deleted"})}
+        # Handle PUT
+        elif method == 'PUT' and task_id:
+            data = json.loads(event['body'])
+            update_expression = []
+            expression_vals = {}
 
-    return {"statusCode": 400, "body": "Unsupported method"}
+            for field in ['title', 'description', 'status', 'priority', 'due_date']:
+                if field in data:
+                    update_expression.append(f"{field} = :{field}")
+                    expression_vals[f":{field}"] = data[field]
+
+            if not update_expression:
+                return {
+                    'statusCode': 400,
+                    'headers': headers,
+                    'body': json.dumps({'error': 'No valid fields to update'})
+                }
+
+            table.update_item(
+                Key={'taskId': task_id},
+                UpdateExpression='SET ' + ', '.join(update_expression),
+                ExpressionAttributeValues=expression_vals,
+                ReturnValues='ALL_NEW'
+            )
+
+            updated = table.get_item(Key={'taskId': task_id})['Item']
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps(updated)
+            }
+
+        # Handle DELETE
+        elif method == 'DELETE' and task_id:
+            table.delete_item(Key={'taskId': task_id})
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps({'message': 'Task deleted successfully'})
+            }
+
+        return {
+            'statusCode': 405,
+            'headers': headers,
+            'body': json.dumps({'error': 'Method not allowed'})
+        }
+
+    except Exception as e:
+        print("ERROR:", str(e))
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': f'Internal server error: {str(e)}'})
+        }

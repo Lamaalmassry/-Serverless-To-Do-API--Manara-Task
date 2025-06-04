@@ -42,24 +42,6 @@ Lambda Functions (CRUD Logic)
 DynamoDB (NoSQL Task Storage)
 
 
-
----
-
-## 📷 Screenshots
-
-Ensure all these image files exist under `images/`:
-
-```md
-| Description             | Screenshot                                        |
-| ----------------------- | ------------------------------------------------- |
-| Terraform apply Output  | ![Architecture](images/architecture.png)
-|
-| Lambda Function Code    | ![Lambda](images/lambda.png)                     |
-| DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |
-| API Gateway Test        | ![API](images/api.png)                           |
-| CloudFront              | ![CloudFront](images/cloudfront.png)            |
-                                                                
-
 ## 🚀 Features
 - 🌐 Web UI hosted via S3 + CloudFront
 - ✅ Create a new task  
@@ -83,16 +65,12 @@ Ensure all these image files exist under `images/`:
 > Example base URL:
 > `https://eoss66b47k.execute-api.us-east-1.amazonaws.com`
 
----
-
-
-
 ```
 ## 📷 Screenshots
 
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| | CloudFront            | ![CloudFront](images/cloudfront.png)            |
+| | CloudFront            | ![CloudFront](images/cloudfront.png)              |
 | Terraform apply Output  | ![Terraform output](images/output.png)           |
 | Lambda Function Code    | ![Lambda](images/lambda.png)                     |
 | DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |

@@ -52,14 +52,13 @@ Ensure all these image files exist under `images/`:
 ```md
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| Terraform apply Output  | 
-  ![Architecture](images/architecture.png)
-          |
+| Terraform apply Output  | ![Architecture](images/architecture.png)
+|
 | Lambda Function Code    | ![Lambda](images/lambda.png)                     |
 | DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |
 | API Gateway Test        | ![API](images/api.png)                           |
 | CloudFront              | ![CloudFront](images/cloudfront.png)            |
-                                                                |
+                                                                
 
 ## 🚀 Features
 - 🌐 Web UI hosted via S3 + CloudFront
@@ -86,25 +85,20 @@ Ensure all these image files exist under `images/`:
 
 ---
 
+
+
+```
 ## 📷 Screenshots
 
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| Terraform apply Output   |![Terraform output](images/output.png)
- |
-| Lambda Function Code    |![Lambda ](images/lambda.png)
-  |
-| DynamoDB Table View     |![Dymanodb](images/dynamodb.png)
-  |
-| API Gateway Test        |![API](images/api.png)
-  |
-| Cloudfront              |![cloudfront](images/cloudfront.png)
-  |
-
+| | CloudFront            | ![CloudFront](images/cloudfront.png)            |
+| Terraform apply Output  | ![Terraform output](images/output.png)           |
+| Lambda Function Code    | ![Lambda](images/lambda.png)                     |
+| DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |
+| API Gateway Test        | ![API](images/api.png)                           |
+                                        
  
-
-
----
 
 ## 🧰 Setup Instructions (Terraform)
 

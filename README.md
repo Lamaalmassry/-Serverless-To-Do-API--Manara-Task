@@ -52,7 +52,9 @@ Ensure all these image files exist under `images/`:
 ```md
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| Terraform apply Output  | ![Terraform output] (./images/output.png)           |
+| Terraform apply Output  | 
+  ![Architecture](images/architecture.png)
+          |
 | Lambda Function Code    | ![Lambda](images/lambda.png)                     |
 | DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |
 | API Gateway Test        | ![API](images/api.png)                           |

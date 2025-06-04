@@ -122,6 +122,7 @@ def lambda_handler(event, context):
                 'headers': headers,
                 'body': json.dumps({'message': 'Task deleted successfully'})
             }
+            
 
         return {
             'statusCode': 405,

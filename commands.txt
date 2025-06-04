@@ -1,6 +1,1 @@
 Compress-Archive -Path handler.py -DestinationPath handler.zip
-curl https://kvhw9hyut6.execute-api.us-east-1.amazonaws.com/tasks    
-curl -X DELETE https://kvhw9hyut6.execute-api.us-east-1.amazonaws.com/tasks/baf32975-5ddc-4792-97c0-b728279d5701      
-curl -X PUT https://kvhw9hyut6.execute-api.us-east-1.amazonaws.com/tasks/baf32975-5ddc-4792-97c0-b728279d5701 `  -H "Content-Type: application/json" 
-`  -d '{"title":"Play games", "priority":"medium"}'
-curl -X POST https://kvhw9hyut6.execute-api.us-east-1.amazonaws.com  -H "Content-Type: application/json" `  -d '{"title":"Buy", "priority":"medium"}'

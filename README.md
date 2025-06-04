@@ -70,7 +70,7 @@ DynamoDB (NoSQL Task Storage)
 
 | Description             | Screenshot                                        |
 | ----------------------- | ------------------------------------------------- |
-| | CloudFront            | ![CloudFront](images/cloudfront.png)              |
+| CloudFront              | ![CloudFront](images/cloudfront.png)              |
 | Terraform apply Output  | ![Terraform output](images/output.png)           |
 | Lambda Function Code    | ![Lambda](images/lambda.png)                     |
 | DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |

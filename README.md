@@ -43,21 +43,21 @@ DynamoDB (NoSQL Task Storage)
 
 
 
-## 🛠️ AWS Services Breakdown
-
-| Service           | Purpose                                                                 |
-|-------------------|-------------------------------------------------------------------------|
-| **API Gateway**    | Handles HTTP requests and routes them to Lambda functions              |
-| **Lambda**         | Serverless compute to run the Python functions (create/read/update/delete tasks) |
-| **DynamoDB**       | NoSQL database to store task data                                       |
-| **IAM**            | Securely manages roles and permissions for Lambda and other services   |
-| **CloudWatch**     | Logs API requests and Lambda executions for monitoring/debugging       |
-| **S3**             | Host a static frontend for the API (simple HTML, CSS/JS UI)
-| **Cloudfront**     | Serves the frontend globally with caching and HTTPS
-| **Terraform**      | Manages the deployment and configuration of all AWS resources
-          |   
-
 ---
+
+## 📷 Screenshots
+
+Ensure all these image files exist under `images/`:
+
+```md
+| Description             | Screenshot                                        |
+| ----------------------- | ------------------------------------------------- |
+| Terraform apply Output  | ![Terraform output](images/output.png)           |
+| Lambda Function Code    | ![Lambda](images/lambda.png)                     |
+| DynamoDB Table View     | ![DynamoDB](images/dynamodb.png)                 |
+| API Gateway Test        | ![API](images/api.png)                           |
+| CloudFront              | ![CloudFront](images/cloudfront.png)            |
+                                                                |
 
 ## 🚀 Features
 - 🌐 Web UI hosted via S3 + CloudFront
@@ -95,8 +95,11 @@ DynamoDB (NoSQL Task Storage)
 | DynamoDB Table View     |![Dymanodb](images/dynamodb.png)
   |
 | API Gateway Test        |![API](images/api.png)
-    |
-|    |
+  |
+| Cloudfront              |![cloudfront](images/cloudfront.png)
+  |
+
+ 
 
 
 ---
